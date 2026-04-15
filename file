@@ -1,0 +1,255 @@
+//1SS Counter with limit 
+import React, { useState } from 'react'
+function App() {
+  const[count,setcount]=useState(0);
+  const increase=()=>{
+    if(count<10){
+      setcount(count+1);
+    }
+  }
+  const decrease=()=>{
+    if(count>0){
+      setcount(count-1);
+    }
+  }
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={increase}>+</button>
+      <button onClick={decrease}>-</button>
+    </div>
+  )
+}
+
+export default App
+//
+
+//2SS Disable Button After Click
+import React, { useState } from 'react'
+function App() {
+    const[check,setcheck]=useState(false)
+    function Checker(){
+    setcheck(true);
+}
+  return (
+    <div>
+        <button onClick={Checker} disabled={check}>Click me!</button>
+    </div>
+  )
+}
+
+export default App
+//
+
+//3SS Dropdown Selection 
+import React, { useState } from 'react'
+function App() {
+    const[value,setvalue]=useState("")
+    function handlechange(e){
+        setvalue(e.target.value)
+    }
+  return (
+    <div>
+        <h3>Select Technology:</h3>
+      <select onChange={handlechange}>
+        <option value="HTML">HTML</option>
+        <option value="CSS">CSS</option>
+        <option value="JavaScript">JavaScript</option>
+        <option value="React">React</option>
+      </select>
+      <h3>You selected: {value}</h3>
+    </div>
+  )
+}
+
+export default App
+//
+
+//4SS Background Color Changer
+import React, { useState } from 'react'
+function App() {
+    const [color,setcolor]=useState("white")
+    function changecolor(){
+        const randomcolor="#"+Math.floor(Math.random()*16777215).toString(16)
+        setcolor(randomcolor);
+    }
+  return (
+    <div style={{backgroundColor:color}}>
+        <button onClick={changecolor}>Change color</button>
+      
+    </div>
+  )
+}
+
+export default App
+//
+
+//5SS password input show/hide
+import React, { useState } from 'react'
+function App() {
+    const[check,setcheck]=useState(false);
+    function change(){
+        setcheck(!check);
+    }
+
+  return (
+    <div>
+      <input type={check ? 'text':'password'}  
+      placeholder='Enter Password'/>
+      <br>
+      </br>
+      <button onClick={change}>{check ? 'Hide':'Show'}</button>
+    </div>
+  )
+}
+
+export default App
+
+
+//6SS Input Live Preview
+import React, { useState } from 'react'
+function App() {
+    const[check,setcheck]=useState(false);
+    function change(){
+        setcheck(!check);
+    }
+  return (
+    <div>
+      <input type={check ? 'text':'password'}  
+      placeholder='Enter Password'/>
+      <br>
+      </br>
+      <button onClick={change}>{check ? 'Hide':'Show'}</button>
+    </div>
+  )
+}
+
+export default App
+//
+
+//7SS Random Quote Generator
+import React, { useState } from 'react'
+function App() {
+    const[quote,setquote]=useState();
+    const quotes=["Believe in yourself",
+      "Never give up",
+      "Stay positive",
+      "Work hard, dream big",
+      "Success is coming"]
+      function change(){
+      const randomquo=Math.floor(Math.random() * quotes.length)
+      setquote(quotes[randomquo]);
+    }
+  return (
+    <div>
+        <h2>{quote}</h2>
+        <button onClick={change}>Click me!</button>
+    </div>
+  )
+}
+
+export default App
+//
+
+//8SS Character Limit with Warning
+import React, { useState } from 'react'
+function App() {
+    const[check,setcheck]=useState("");
+    function change(e){
+        if(20>=e.target.value.length){
+            setcheck(e.target.value);
+        }
+    }
+    function remain(e){
+        let x=20-check.length;
+        return x;
+    }
+    function limit(){
+        if(check.length===20){
+            return <h3 style={{color: "red"}}>Limit reached!</h3>
+        }
+    }
+  return (
+    <div>
+        <h2>Check Character Limit</h2>
+        <input type='text'
+        onChange={change}
+        value={check}
+        placeholder='Type here'
+        />
+      <h3>Remaining: {remain()}</h3>
+      <h3>{limit()}</h3>
+    </div>
+  )
+}
+
+export default App
+//
+
+//1CS Toggle Status Inside Object
+import React, { useState } from 'react'
+function App() {
+    const [check,setcheck]=useState({
+        title:"Learn React",
+        completed: false
+    });
+    function tog(){
+        setcheck({
+            ...check,
+            completed: !check.completed
+        })
+    }
+  return (
+    <div>
+      <h2>{check.title} - {check.completed?"Completed":"Pending"}</h2>
+      <button onClick={tog}>Toggle Status</button>
+    </div>
+  )
+}
+
+export default App
+//
+
+//2CS Update Specific User in List
+import React, { useState } from 'react'
+function App() {
+    const [users, setUsers] = useState([
+    { id: 1, name: "A" },
+    { id: 2, name: "B" }
+    ]);
+
+    function user(){
+        const update=users.map(function(u){
+            if(u.id===2){
+              return{ 
+                ...u,
+                name:"updated"
+              }
+            }
+            return u;
+        })
+        setUsers(update);
+    }
+    function dispaly(){
+        return users.map(function(u){
+            return <h3>User List <br></br>
+            User {u.id}: {u.name}
+            </h3>
+        })
+    }
+  return (
+    <div>
+        {dispaly()}
+        <button onClick={user}>Update</button>
+    </div>
+  )
+}
+
+export default App
+//
+
+//
+
+
+
+
