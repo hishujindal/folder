@@ -1,3 +1,82 @@
+//1RP Greeting Messages in English and French
+import React from 'react'
+
+function User(){
+  return(
+  <>
+  < UserMessage name="Alice" language="en"/>
+  < UserMessage name="Jean" language="fr"/>
+  </>
+)
+}
+function UserMessage(props){
+  let message="";
+  if(props.language==="en"){
+    message= `Hello, ${props.name}`;
+  }
+  else if(props.language==="fr"){
+    message=`Bonjour, ${props.name}`;
+  }
+  return <h3>{message}</h3>
+}
+
+function App(){
+ return( 
+ <div>
+<User/>
+ </div>
+
+)
+}
+
+export default App
+//
+
+//3RP Profile Card Component
+import React from 'react'
+
+function User(){
+  return (
+    <>
+    <ProfileCard name="Alice" age={23} isOnline={true}/>
+    <ProfileCard name="Bob" age={21} isOnline={false} /> 
+    <ProfileCard name="Carlos" age={25} isOnline={true} />
+    </>
+  )
+}
+
+function ProfileCard(props){
+  let status=""
+  let color=""
+  if(props.isOnline===true){
+    status="Online"
+    color="green"
+  }
+  else{
+    status="Offline"
+    color="grey"
+  }
+  return(
+    <div>
+      <h2>Name: {props.name}</h2>
+      <h2>Age: {props.age}</h2>
+      <h3 style={{color:color}}>{status}</h3>
+
+    </div>
+  )
+}
+
+function App(){
+  return (
+    <div>
+      <User/>
+    </div>
+  )
+}
+
+export default App
+//
+
 //1SS Counter with limit 
 import React, { useState } from 'react'
 function App() {
