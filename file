@@ -1,6 +1,5 @@
 //1RP Greeting Messages in English and French
 import React from 'react'
-
 function User(){
   return(
   <>
@@ -34,7 +33,6 @@ export default App
 
 //3RP Profile Card Component
 import React from 'react'
-
 function User(){
   return (
     <>
