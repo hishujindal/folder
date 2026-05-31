@@ -1,3 +1,66 @@
+//1 PROMISES Promise - Inventory Stock Checker
+function stockAvailability(st){
+    return new Promise(function(resolve,reject){
+        setTimeout(function(){
+            for(let i=0;i<st.length;i++){
+                if(st[i].available==0){
+                    reject("Rejected")
+                    return;
+                }
+                else if(st[i].available<=st[i].requested){
+                    resolve("Partial")
+                    return;
+                }
+                else{
+                    resolve("Available")
+                    return;
+                }
+            }
+        },1000)
+    })
+}
+stockAvailability([
+  {item: 'Shirts', requested: 10, available: 5 },
+  {item: 'Jeans', requested: 6, available: 6 }
+])
+
+.then(function(resolve){
+    console.log(resolve)
+})
+.catch(function(reject){
+    console.log(reject);
+})
+//
+
+//2 PROMISE Promise - Product Price Validator
+function checkoutSystem(check){
+    return new Promise(function(resolve,reject){
+        setTimeout(function(){
+            for(let i=0;i<check.length;i++){
+                if(check[i].price<=0 || check[i].price==null){
+                    reject("Reject")
+                }
+                
+            }
+            resolve("Resolve")
+        },1500)
+    })
+}
+
+checkoutSystem([
+  {name: 'Laptop', price: 1},
+  {name: 'Mouse',  },
+  {name: 'Keyboard', price: 1200 }
+])
+
+.then(function(resolve){
+    console.log(resolve)
+})
+.catch(function(reject){
+    console.log(reject)
+})
+//
+
 //1RP Greeting Messages in English and French
 import React from 'react'
 function User(){
