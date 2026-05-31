@@ -61,6 +61,31 @@ checkoutSystem([
 })
 //
 
+//1 AXIOS Axios - Register User
+function registerUser(userData){
+        if(!userData.email.includes ("@") || userData.password.length<6 || userData.name==null || userData.email==null || userData.password==null){
+            console.log("Invalid input data")
+        }
+    else{
+    axios.post("https://jsonplaceholder.typicode.com/users",userData)
+    .then(function(response){
+        console.log("User registered successfully:",response.data)
+    })
+    .catch(function(error){
+        console.log("Registration failed:",error.message)
+    })
+    }
+    
+    
+}
+
+registerUser({
+    name: "Alice",
+    email: "alice@example.com",
+    password: "secure123"
+})
+//
+
 //1RP Greeting Messages in English and French
 import React from 'react'
 function User(){
