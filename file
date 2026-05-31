@@ -601,6 +601,381 @@ else{
 msg.textContent=""
 }
 })
+//
+
+//1 EXTRA CLASS React - The Smart Inventory Dashboard
+import React from 'react'
+
+function App() {
+  const products = [
+  { id: 101, name: "Laptop", price: 85000, category: "Electronics", stock: 15 },
+  { id: 102, name: "Office Chair", price: 12000, category: "Furniture", stock: 0 },
+  { id: 103, name: "Smart Watch", price: 5000, category: "Electronics", stock: 4 },
+  { id: 104, name: "Desk Lamp", price: 1500, category: "Furniture", stock: 8 },
+  { id: 105, name: "Mechanical Keyboard", price: 7000, category: "Electronics", stock: 25 },
+  { id: 106, name: "Gaming Mouse", price: 3500, category: "Electronics", stock: 2 }
+];
+  return (
+    
+    <div>
+      <table style={{borderCollapse:'collapse'}}>
+        <tr>
+          <th style={{border:"1px solid black"}}>Name</th>
+          <th style={{border:"1px solid black"}}>Category</th>
+          <th style={{border:"1px solid black"}}>Price</th>
+          <th style={{border:"1px solid black"}}>Stock</th>
+          <th style={{border:"1px solid black"}}>Availability Status</th>
+        </tr>
+          {products.map((product)=>{
+            return(
+            <tr style={{color:product.stock==0?"red":product.stock>10 && product.price>50000?"green":product.stock<10 && product.stock>1?"orange":"", fontStyle:product.stock==0?"italic":""}}>
+              <td style={{border:"1px solid black"}}>{product.name}</td>
+              <td style={{border:"1px solid black"}}>{product.category}</td>
+              <td style={{border:"1px solid black"}}>{product.price}</td>
+              <td style={{border:"1px solid black"}}>{product.stock}</td>
+              <td style={{border:"1px solid black"}}>{product.stock==0?"Out of Stock":product.stock>10?"In Stock":"Limited Stock"}</td>
+            </tr>
+
+
+            )
+          })}
+          <h3>Total Items in Catalog: {products.length}</h3>
+          
+          <h3>Average Product Price: {products.reduce((sum,pro)=>{
+            return sum+pro.price
+          },0)/products.length}
+          </h3>
+
+          <h2>Premium Products</h2>
+          {products.filter((pro)=>{
+              return pro.price > 10000
+          }).map((pro)=>{
+            return(
+              <p>{pro.name}</p>
+            )
+          })
+          }
+          <h2>Electronics Clearance</h2>
+          {products.filter((pro)=>{
+            return pro.stock<5 && pro.stock>0
+          }).map((pro)=>{
+            return(
+              <p>{pro.name} - Only {pro.stock} left</p>
+            )
+          })}
+      </table> 
+    </div>
+  )
+}
+
+export default App
+//
+
+//2 EXTRA CLASS React JSX - Student Dropdown
+import React from 'react'
+
+function App() {
+const students = [
+{ id: 1, name: "Amit" },
+{ id: 2, name: "Riya" },
+{ id: 3, name: "John" },
+{ id: 4, name: "Sneha" }
+];
+return (
+<div>
+<h2>Student Dropdown</h2>
+<select>
+<option>Select Student</option>
+{students.map((stu)=>{
+return(
+<option>{stu.name}</option>
+)
+})}
+</select>
+</div>
+)
+}
+
+export default App
+//
+
+//3 EXTRA CLASS React - E-commerce Product Dashboard
+import React, { useEffect, useState } from 'react'
+import Product from './Product'
+
+function App() {
+const [data,setdata]=useState([])
+useEffect(()=>{
+fetch("https://fakestoreapi.com/products")
+.then(res=>res.json())
+.then(d=>setdata([...d]))
+},[])
+
+function sorthandle(e){
+if(e.target.id=='asc'){
+let sorteddata=data.sort((a,b)=>a.price-b.price)
+setdata([...sorteddata])
+}
+
+else{
+let sorteddata=data.sort((a,b)=>b.price-a.price)
+setdata([...sorteddata])
+}
+}
+return (
+<div>
+<select onChange={sorthandle}>
+<option id='asc'>Price (Low → High)</option>
+<option id='dec' >Price (High → Low)</option>
+</select>
+<Product data={data}/>
+</div>
+)
+}
+export default App
+
+
+
+import React from 'react'
+function Product({data}) {
+return (
+<div>
+<table>
+<tr>
+<th>ID</th>
+<th>Product Name</th>
+<th>Price</th>
+<th>Category</th>
+<th>Rating</th>
+<th>Product Image</th>
+</tr>
+{data.map((d)=>{
+return(
+<tr>
+<td>{d.id}</td>
+<td>{d.title}</td>
+<td>{d.price}</td>
+<td>{d.category}</td>
+<td>{d.rating.rate}</td>
+<td><img src={d.image} height={100} width={100}/></td>
+</tr>
+)
+})}
+</table>
+</div>
+)
+}
+
+export default Product
+//
+
+//4 EXTRA CLASS Product Category Filter Using Checkbox
+import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom';
+
+function App() {
+const products = [
+{
+id: 1,
+name: "Laptop",
+category: "Electronics",
+price: 50000
+},
+{
+id: 2,
+name: "T-Shirt",
+category: "Clothing",
+price: 1200
+},
+{
+id: 3,
+name: "Mobile",
+category: "Electronics",
+price: 30000
+},
+{
+id: 4,
+name: "Jeans",
+category: "Clothing",
+price: 2000
+}
+];
+const [ele,setele]=useState(false);
+const [clo,setclo]=useState(false);
+
+function handelele(e){
+setele(e.target.checked);
+}
+
+function handelclo(e){
+setclo(e.target.checked);
+}
+
+let filterpro=products;
+if(ele && clo){
+filterpro=products;
+}
+else if(ele){
+filterpro=products.filter((product)=>{
+return(
+product.category=="Electronics"
+)})
+}
+
+else if(clo){
+filterpro=products.filter((product)=>{
+return(
+product.category=="Clothing"
+)
+})
+}
+
+else if(ele==false && clo==false){
+filterpro=products;
+}
+return (
+<div>
+<label>
+<input
+type='checkbox'
+onChange={handelele}
+/>
+Electronics
+</label>
+<br></br>
+<label>
+<input
+type='checkbox'
+onChange={handelclo}
+/>
+Clothing
+</label>
+<br></br>
+<table>
+<tr>
+<th>Name</th>
+<th>Category</th>
+<th>Price</th>
+</tr>
+{filterpro.map((product)=>{
+return(
+<tr>
+<td>{product.name}</td>
+<td>{product.category}</td>
+<td>{product.price}</td>
+</tr>
+)
+})}
+</table>
+</div>
+)
+}
+
+export default App
+//
+
+//5 EXTRA CLASS React - Product Dropdown Viewer
+import React, { useEffect, useState } from 'react'
+import { data } from 'react-router-dom'
+
+function App() {
+const [check,setcheck]=useState([])
+const [selected,setselected]=useState(null)
+let products=check
+useEffect(()=>{
+fetch("https://fakestoreapi.com/products")
+.then(res=>res.json())
+.then(data=>setcheck([...data]))
+},[])
+
+function handlesel(e){
+let product=check.filter((pro)=>{
+return pro.title==e.target.value
+})
+setselected(product[0]);
+}
+return (
+<div>
+<select onChange={handlesel}>
+{products.map((pro)=>{
+return(
+<option>{pro.title}</option>
+)
+})}
+</select>
+<p>{selected ? <img src={selected.image} height={100} width={100}/>: <p>Select a product</p>}</p>
+<p>{selected ? selected.title :""}</p>
+<p>{selected ? selected.category : "" }</p>
+<p>{selected ? selected.price :""}</p>
+<p>{selected ? selected.description : ""}</p>
+</div>
+)
+}
+export default App
+//
+
+//6 EXTRA CLASS React - Image Slider
+import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom';
+
+function App() 
+const [count,setcount]=useState(0)
+function inc(){
+if(count<3){
+setcount(count+1);}
+}
+function dec(){
+if(count>0){
+setcount(count-1);}
+}
+const images = [
+"https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+"https://images.unsplash.com/photo-1493246507139-91e8fad9978e",
+"https://images.unsplash.com/photo-1519125323398-675f0ddb6308"
+];
+return (
+<div>
+<h2>Image Slider</h2>
+<p><img src={images[count]} height={100} width={100}/></p>
+<button onClick={dec}>Previous</button>
+<button onClick={inc}>Next</button>
+</div>
+)
+}
+
+export default App
+//
+
+//7 EXTRA CLASS React - password validator
+import React, { useState } from 'react'
+
+function App() {
+const [pass,setpass]=useState("")
+function handlepass(e){
+setpass(e.target.value)
+}
+const first=/^[A-Z]/.test(pass)
+const lower=/[a-z]/.test(pass)
+const special=/[^A-Za-z0-9]/.test(pass)
+const num=/[0-9]/.test(pass)
+return (
+<div>
+<input type='password' onChange={handlepass}/>
+<p style={{color: first? "green":"red"}}>First character should be Capital</p>
+<p style={{color: lower? "green":"red"}}>Must contain one small letter</p>
+<p style={{color: special? "green":"red"}}>Must contain one special character</p>
+<p style={{color: num? "green":"red"}}>Must contain one number (0-9)</p>
+</div>
+)
+}
+
+export default App
+//
+
+
+
+
 
 
 
