@@ -523,7 +523,84 @@ function ProductTiles() {
 export default ProductTiles;
 //
 
+// 1RRD E-Commerce Product Categories (Nested Routing)
+import React from 'react'
+import Product from './Product'
+import Electronics from './Electronics'
+import Clothing from './Clothing'
+import Furniture from './Furniture'
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Product/>}>
+              <Route path="Electronics" element={<Electronics/>}/>  
+              <Route path="Clothing" element={<Clothing/>}/>  
+              <Route path="Furniture" element={<Furniture/>}/> 
+        </Route>                
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default App
+
+
+import { Link, Outlet } from 'react-router-dom'
+
+function Product(){
+    return (
+        <div>
+            <h1>Product Page</h1>
+            <Link to="Electronics">Electronics</Link>
+            <br></br>
+            <Link to="Clothing">Clothing</Link>
+            <br></br>
+            <Link to="Furniture">Furniture</Link>
+            <br></br>
+            <Outlet />
+        </div>
+    )
+}
+export default Product;
 //
+
+// 1TS DOM TS - Character Counter for Textarea
+const textarea=document.getElementById("postContent") as HTMLTextAreaElement;
+const charcount=document.getElementById("charCount") as HTMLElement;
+const warn=document.getElementById("warningMsg") as HTMLElement;
+
+textarea.addEventListener("input",()=>{
+const count=textarea.value.length;
+charcount.textContent=(`${count}/10`)
+if(count>10){
+warn.textContent="Character Limit exceeded!"
+}
+
+})
+//
+
+// 2TS DOM TS - Dropdown Selection Display
+const country = document.getElementById("countrySelect");
+const selcountry = document.getElementById("selectedCountry");
+country.addEventListener("change", () => {
+    selcountry.textContent = country.value;
+});
+//
+
+//3TS DOM Real-time Numeric Input Validation with TypeScript
+const inp=document.getElementById("ageInput") as HTMLInputElement;
+const msg=document.getElementById("errorMsg") as HTMLElement;
+
+inp.addEventListener("input",()=>{
+if(/[^0-9]/.test(inp.value)){
+msg.textContent="Enter Digit Only"
+}
+else{
+msg.textContent=""
+}
+})
 
 
 
